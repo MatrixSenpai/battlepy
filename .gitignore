@@ -1,0 +1,5 @@
+.git/
+*.bpydata
+*.pyc
+*.php
+*.json
