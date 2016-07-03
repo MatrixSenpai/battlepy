@@ -6,6 +6,7 @@ from subprocess import call
 from PlayerBoard import PlayerBoard
 from TargetBoard import TargetBoard
 from Player import Player
+from Player import Computer
 
 managerDataFile = "./.manager.bpydata"
 
@@ -21,7 +22,7 @@ class GameManager:
         self.humPlayer = player
         self.humPlaceBoard = PlayerBoard()
 
-        self.comPlayer = Player("Computer")
+        self.comPlayer = Computer()
         self.comPlaceBoard = PlayerBoard()
         self.comPlaceBoard.compBoard()
 
@@ -52,7 +53,7 @@ class GameManager:
                 else:
                     self.humPlayer.miss(l, n)
 
-                sleep(3)
+                turn = False
             else:
                 # Computer's turn
                 target = self.comPlayer.turn()
@@ -68,6 +69,7 @@ class GameManager:
 
                 turn = True
 
+            raw_input("Press Enter to continue")
             hh = self.humPlayer.health()
             ch = self.comPlayer.health()
 
