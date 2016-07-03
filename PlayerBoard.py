@@ -169,6 +169,12 @@ class PlayerBoard:
             print("%s%s, Hit!" % (l, number))
             self.board[l][n] = 3
 
+            for ship in self.ships:
+                for place in ship.location:
+                    if place == "%s%s" % (letter.upper(), number):
+                        ship.health = ship.health - 1
+                        if ship.health == 0:
+                            print "%s is sunk!" % ship.name
             return True
         if data == 1 or data == 3:
             print("%s%s, Already targeted!" % (l, number))
