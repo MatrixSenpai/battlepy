@@ -157,27 +157,21 @@ class PlayerBoard:
 
         return True
 
-
     def guess(self, letter, number):
-        letter = letter.upper()
-        number = int(number)
-        data = self.board[letter][number - 1]
+        l = letter.upper()
+        n = int(number) - 1
+        data = self.board[l][n]
         if data == 0:
-            print("%s%d, Miss!" % (letter, number))
-            self.board[letter][number - 1] = 1
+            print("%s%s, Miss!" % (l, number))
+            self.board[l][n] = 1
             return False
         if data == 2:
-            print("%s%d, Hit!" % (letter, number))
-            self.board[letter][number - 1] = 3
+            print("%s%s, Hit!" % (l, number))
+            self.board[l][n] = 3
 
-            for ship in self.ships:
-                for place in ship.location:
-                    if place == "%s%s" % (letter, number):
-                        ship.health = ship.health - 1
-                        print ship
             return True
         if data == 1 or data == 3:
-            print("%s%d, Already targeted!" % (letter, number))
+            print("%s%s, Already targeted!" % (l, number))
             return "x"
 
     def getHealth(self):

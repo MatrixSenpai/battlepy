@@ -34,6 +34,24 @@ class Player:
         ships = self.placeBoard.ships
         self.targetBoard = TargetBoard(ships)
 
+    def turn(self):
+        print "Computer targeting..."
+        l = random.choice(["A", "B", "C", "D", "E", "F", "G", "H", "J", "I"])
+        n = random.randint(1, 10)
+        return "%s%d" % (l, n)
+
+    def targeted(self, l, n):
+        res = self.placeBoard.guess(l, n)
+
+    def hit(self, l, n):
+        self.targetBoard.opponentTargeted(l, n, True)
+
+    def miss(self, l, n):
+        self.targetBoard.opponentTargeted(l, n, False)
+
+    def health(self):
+        return self.placeBoard.getHealth()
+
     def setName(self, newName):
         self.name = newName
 

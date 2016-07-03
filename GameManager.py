@@ -12,12 +12,8 @@ managerDataFile = "./.manager.bpydata"
 class GameManager:
 
     humPlayer = ""
-    humPlaceBoard = ""
-    humTargetBoard = ""
 
     comPlayer = ""
-    comPlaceBoard = ""
-    comTargetBoard = ""
 
     turn = True
 
@@ -42,18 +38,13 @@ class GameManager:
         self.humPlayer.placeShips()
         self.comPlayer.placeShips()
 
-        # 2. Start Playing
+        l = ""
+        n = ""
         while True:
             if turn:
                 # Player's turn
                 target = self.humPlayer.turn()
-                l = ""
-                n = ""
-                if len(target) != 2:
-                    l = target[0]
-                    n = 10
-                else:
-                    (l, n) = list(target)
+                (l, n) = self.evalTarget(target)
 
                 res = self.comPlayer.targeted(l, n)
                 if res:
@@ -61,33 +52,47 @@ class GameManager:
                 else:
                     self.humPlayer.miss(l, n)
 
+                sleep(3)
             else:
                 # Computer's turn
-                self.displayBoard(self.comTargetBoard, self.comPlaceBoard, True)
-                print "Computer targeting..."
-                sleep(2)
-                l = random.choice(["A", "B", "C", "D", "E", "F", "G", "H", "J", "I"])
-                n = random.randint(1, 9)
-                res = self.humPlaceBoard.guess(l, n)
-                if res == "x":
-                    continue
-                self.comTargetBoard.opponentTargeted(l, n, res)
-                self.displayBoard(self.comTargetBoard, self.comPlaceBoard, True)
-                turn = True
-                sleep(2)
+                target = self.comPlayer.turn()
+                (l, n) = self.evalTarget(target)
 
-            hh = self.humPlaceBoard.getHealth()
-            ch = self.comPlaceBoard.getHealth()
+                res = self.humPlayer.targeted(l, n)
+                if res == True:
+                    self.comPlayer.hit(l, n)
+                elif res == False:
+                    self.comPlayer.miss(l, n)
+                else:
+                    continue
+
+                turn = True
+
+            hh = self.humPlayer.health()
+            ch = self.comPlayer.health()
 
             if not hh:
                 self.humPlayer.losses = self.humPlayer.losses + 1
+                self.humPlayer.save()
                 print "Computer Wins!"
                 break
             if not ch:
                 self.humPlayer.wins = self.humPlayer.wins + 1
+                self.humPlayer.save()
                 print "Player Wins!"
                 break
             call(["clear"])
+
+    def evalTarget(self, target):
+        l = ""
+        n = 0
+        if len(target) != 2:
+            l = target[0]
+            n = 10
+        else:
+            (l, n) = list(target)
+
+        return (l, n)
 
     def displayBoard(self, target, place, comp):
         print target

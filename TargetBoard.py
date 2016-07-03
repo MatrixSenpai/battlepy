@@ -41,10 +41,8 @@ class TargetBoard:
 
     def opponentTargeted(self, letter, number, wasHit):
         letter = letter.upper()
-        number = int(number)
+        number = int(number) - 1
         if wasHit:
             self.board[letter][number] = 2
         else:
             self.board[letter][number] = 1
-
-        print self.board[letter][number]
