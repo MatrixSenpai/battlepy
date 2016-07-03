@@ -39,6 +39,7 @@ class Player:
 
     def placeShips(self):
         self.placeBoard = PlayerBoard()
+        self.placeBoard.placeShips()
 
         ships = self.placeBoard.ships
         self.targetBoard = TargetBoard(ships)
