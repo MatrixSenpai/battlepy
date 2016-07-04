@@ -99,7 +99,11 @@ class PlayerBoard:
                 print("\nPlace your %s" % t)
 
                 user = raw_input("Enter letter & number of first place > ")
-                (frow, fnum) = list(user)
+                if len(user) > 2:
+                    frow = user[0]
+                    fnum = 10
+                else:
+                    (frow, fnum) = list(user)
                 align = raw_input("Vertical or Horizontal [H/v]> ")
 
                 frow = frow.upper()

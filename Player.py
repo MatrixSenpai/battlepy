@@ -26,7 +26,8 @@ class Player:
         if self.losses == 0 and self.wins > 0:
             winper = 100
         if self.losses > 0:
-            winper = (self.wins/self.losses) * 100
+            total = self.wins + self.losses
+            winper = (self.wins/total) * 100
 
         rtr = ""
 
