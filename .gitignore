@@ -3,3 +3,4 @@
 *.pyc
 *.php
 *.json
+build/
