@@ -4,9 +4,9 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['/Users/matrix/LocalDevelopment/battlpy'],
-             binaries=None,
-             datas=None,
+             pathex=['/Users/matrix/Development/Mine/battlepy'],
+             binaries=[],
+             datas=[],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
